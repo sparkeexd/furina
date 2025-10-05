@@ -11,6 +11,6 @@ const uptimeProviders = [UptimeController, UptimeHandler];
  * Health module to query bot's latency and uptime.
  */
 @Module({
-    providers: [...pingProviders, ...uptimeProviders],
+    providers: [PingController, PingHandler, UptimeController, UptimeHandler],
 })
 export class HealthModule {}

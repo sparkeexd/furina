@@ -19,19 +19,12 @@ export class PingHandler implements IQueryHandler<PingQuery> {
         const botLatency = Date.now() - interaction.createdTimestamp;
         const websocketLatency = Math.round(interaction.client.ws.ping);
 
-        const embed = new EmbedBuilder()
-            .setTitle('Pong! 🏓')
-            .setDescription(
-                `
-                Bot Latency: **${botLatency}ms**
-                Websocket Latency: **${websocketLatency}ms**
-                `,
-            )
-            .setAuthor({
-                name: interaction.client.user.username,
-                iconURL: interaction.client.user.displayAvatarURL(),
-            })
-            .setTimestamp();
+        const embed = new EmbedBuilder().setTitle('Pong! 🏓').setDescription(
+            `
+            Bot Latency: **${botLatency}ms**
+            Websocket Latency: **${websocketLatency}ms**
+            `,
+        );
 
         return { embed };
     }

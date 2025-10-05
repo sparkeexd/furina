@@ -35,7 +35,10 @@ export const necordConfig = {
             throw new Error('Necord configuration is not defined');
         }
 
-        return { ...options, intents: [IntentsBitField.Flags.Guilds] };
+        return {
+            ...options,
+            intents: [IntentsBitField.Flags.Guilds],
+        };
     },
     inject: [ConfigService],
 };

@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseInterceptors } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { Message, MessageFlags } from 'discord.js';
 
+import { InteractionEditReplyOptions } from 'discord.js';
 import type { SlashCommandContext } from 'necord';
 import { Context, SlashCommand } from 'necord';
+import { CommandInterceptor } from 'src/core/interceptors/command.interceptor';
+import { LoggingInterceptor } from 'src/core/interceptors/logging.interceptor';
 import { PingQuery } from './ping.request.dto';
 import { PingResponseDto } from './ping.response.dto';
 
@@ -11,6 +13,7 @@ import { PingResponseDto } from './ping.response.dto';
  * Controller to handle the 'ping' command.
  */
 @Injectable()
+@UseInterceptors(CommandInterceptor, LoggingInterceptor)
 export class PingController {
     /**
      * Constructor.
@@ -29,14 +32,11 @@ export class PingController {
         name: 'ping',
         description: "Check the bot's latency.",
     })
-    public async ping(@Context() [interaction]: SlashCommandContext): Promise<Message<boolean>> {
-        await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-
+    public async ping(
+        @Context() [interaction]: SlashCommandContext,
+    ): Promise<InteractionEditReplyOptions> {
         const query = new PingQuery(interaction);
         const { embed } = await this.queryBus.execute<PingQuery, PingResponseDto>(query);
-
-        return interaction.editReply({
-            embeds: [embed],
-        });
+        return { embeds: [embed] };
     }
 }
