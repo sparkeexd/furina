@@ -26,27 +26,27 @@ export class EnvironmentValidation {
     DISCORD_DEVELOPMENT_GUILD_ID: string;
 
     @IsEnum(['postgres'])
-    DATABASE_TYPE: 'postgres' = 'postgres';
+    POSTGRES_TYPE = 'postgres' as const;
 
     @IsString()
     @IsNotEmpty()
-    DATABASE_USER: string;
+    POSTGRES_USER: string;
 
     @IsString()
     @IsNotEmpty()
-    DATABASE_PASSWORD: string;
+    POSTGRES_PASSWORD: string;
 
     @IsString()
     @IsNotEmpty()
-    DATABASE_HOST: string;
+    POSTGRES_HOST: string;
 
     @Type(() => Number)
     @IsNumber()
-    DATABASE_PORT: number;
+    POSTGRES_PORT: number;
 
     @IsString()
     @IsNotEmpty()
-    DATABASE_NAME: string;
+    POSTGRES_NAME: string;
 }
 
 /**

@@ -28,7 +28,9 @@ export class LoggingInterceptor implements NestInterceptor {
         return next
             .handle()
             .pipe(
-                tap(() => this.logger.log(`Finished handling command: ${interaction.commandName}`)),
+                tap<T>(() =>
+                    this.logger.log(`Finished handling command: ${interaction.commandName}`),
+                ),
             );
     }
 }

@@ -20,13 +20,15 @@ export class UptimeHandler implements IQueryHandler<UptimeQuery> {
         const uptime = interaction.client.uptime;
         const lastRestart = new Date(Date.now() - uptime);
 
-        const embed = new EmbedBuilder().setTitle('Uptime ⏱️').setDescription(
-            `
-            **Last Restart**: ${time(lastRestart, TimestampStyles.RelativeTime)}
-            **Uptime**: ${humanizeDuration(uptime, { units: ['d', 'h', 'm', 's'], round: true })}
-            `,
-        );
+        const embed = new EmbedBuilder()
+            .setTitle('Uptime ⏱️')
+            .setDescription(
+                [
+                    `**Last Restart**: ${time(lastRestart, TimestampStyles.RelativeTime)}`,
+                    `**Uptime**: ${humanizeDuration(uptime, { units: ['d', 'h', 'm', 's'], round: true })}`,
+                ].join('\n'),
+            );
 
-        return { embed };
+        return Promise.resolve({ embed });
     }
 }

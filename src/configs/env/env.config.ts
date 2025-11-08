@@ -13,11 +13,11 @@ export const config = (): Config => ({
         development: [process.env.DISCORD_DEVELOPMENT_GUILD_ID || ''].filter(Boolean),
     },
     typeorm: {
-        type: (process.env.DATABASE_TYPE as 'postgres') || 'postgres',
-        host: process.env.DATABASE_HOST || 'localhost',
-        port: process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT) : 5432,
-        username: process.env.DATABASE_USERNAME || 'postgres',
-        password: process.env.DATABASE_PASSWORD || 'postgres',
-        database: process.env.DATABASE_NAME || 'postgres',
+        type: (process.env.POSTGRES_TYPE as 'postgres') || 'postgres',
+        host: process.env.POSTGRES_HOST || 'localhost',
+        port: process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT) : 5432,
+        username: process.env.POSTGRES_USERNAME || 'postgres',
+        password: process.env.POSTGRES_PASSWORD || 'postgres',
+        database: process.env.POSTGRES_NAME || 'postgres',
     },
 });

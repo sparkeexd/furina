@@ -1,0 +1,8 @@
+{
+    "camelCase": true,
+    "defaultSchemas": ["public"],
+    "dialect": "postgres",
+    "includePattern": "public.*",
+    "envFile": ".env.production",
+    "outFile": "./src/core/db/schema.d.ts"
+}

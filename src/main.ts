@@ -8,4 +8,4 @@ async function bootstrap() {
     await NestFactory.createApplicationContext(AppModule);
 }
 
-bootstrap();
+void bootstrap();

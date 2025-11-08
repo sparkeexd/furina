@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { CacheType, EmbedBuilder, Interaction, InteractionEditReplyOptions } from 'discord.js';
 import { NecordExecutionContext, SlashCommandContext } from 'necord';
-import { map, Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 /**
  * Interceptor to handle Discord command interactions.
@@ -30,14 +30,14 @@ export class CommandInterceptor implements NestInterceptor {
         await interaction.deferReply();
 
         return next.handle().pipe(
-            map((data: InteractionEditReplyOptions) => {
+            switchMap(async (data: InteractionEditReplyOptions) => {
                 if (data.embeds) {
                     data.embeds = data.embeds.map((embed: EmbedBuilder) =>
                         this.applyDefaultEmbedProperties(interaction, embed),
                     );
                 }
 
-                interaction.editReply(data);
+                await interaction.editReply(data);
             }),
         );
     }
